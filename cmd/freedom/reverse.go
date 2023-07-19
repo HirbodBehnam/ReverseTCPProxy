@@ -18,7 +18,7 @@ func initiateReverseProxy(id string) {
 	}
 	defer jailedComputer.Close()
 	// Send the initial message
-	_, err = fmt.Fprintf(jailedComputer, "GET /%s HTTP/1.1\n\r\n\r", id)
+	_, err = fmt.Fprintf(jailedComputer, "GET /%s HTTP/1.1\r\n\r\n", id)
 	if err != nil {
 		logger.WithError(err).Error("cannot send hello message to jailed computer")
 		return
@@ -33,6 +33,7 @@ func initiateReverseProxy(id string) {
 	// Proxy everything
 	err = util.ProxyConnection(jailedComputer, destination)
 	if err != nil {
-		log.WithError(err).Warn("cannot proxy connection")
+		logger.WithError(err).Error("cannot proxy connection")
 	}
+	logger.Debug("proxy done")
 }
