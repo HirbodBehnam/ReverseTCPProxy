@@ -5,6 +5,7 @@ import (
 	"net"
 	"regexp"
 	"strconv"
+	"time"
 )
 
 // regex pattern of the first remote packet
@@ -49,13 +50,15 @@ func handleRemoteConnection(remoteConn net.Conn) {
 	logger = logger.WithField("id", id)
 	logger.Debug("got first packet")
 	// Send it to local connection
-	if pendingConnections.MatchConnection(id, remoteConn) == false {
-		logger.Error("cannot match remote with local")
-		_ = remoteConn.Close()
-	} else {
+	timer := time.NewTimer(config.RemoteWaitTimeout)
+	select {
+	case remoteConnectionPool <- remoteConn:
 		logger.Debug("matched remote with local")
+		timer.Stop()
+	case <-timer.C:
+		_ = remoteConn.Close()
+		logger.Error("cannot match remote with local")
 	}
-	// Note that we dont need to close this connection. Local thread does it
 }
 
 // parseRemoteFirstPacket parses the first packet of a remote connection.

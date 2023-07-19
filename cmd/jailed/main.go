@@ -16,7 +16,6 @@ func main() {
 	config.RemoteWaitTimeout *= time.Millisecond
 	log.WithField("remote_timeout", config.RemoteWaitTimeout).Trace("timeout set")
 	// Start listeners
-	pendingConnections = util.NewPendingConnections()
 	go listenForLocal()
 	go listenForRemote()
 	select {} // wait forever...

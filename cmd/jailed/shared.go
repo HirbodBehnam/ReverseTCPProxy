@@ -1,6 +1,8 @@
 package main
 
-import "ReverseTCPProxy/util"
+import (
+	"net"
+)
 
-// List of pending local connections, waiting for a remote connection to be matched with
-var pendingConnections *util.PendingConnections
+// Remote connection pool
+var remoteConnectionPool = make(chan net.Conn)
