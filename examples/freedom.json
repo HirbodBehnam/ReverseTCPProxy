@@ -1,0 +1,5 @@
+{
+  "control_listen": "127.0.0.1:53141",
+  "jailed_computer_address": "127.0.0.1:32521",
+  "destination_address": "127.0.0.1:51109"
+}

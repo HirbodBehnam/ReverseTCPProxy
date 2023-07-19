@@ -7,6 +7,7 @@ import (
 )
 
 func main() {
+	log.SetLevel(log.TraceLevel)
 	util.ParseConfig(&config)
 	http.HandleFunc("/", controllerEndpoint)
 	err := http.ListenAndServe(config.ControlListen, nil)
