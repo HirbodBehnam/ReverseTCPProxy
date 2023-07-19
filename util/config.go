@@ -10,8 +10,8 @@ import (
 func ParseConfig(config any) {
 	// Set the name
 	configName := "config.json"
-	if len(os.Args) == 1 {
-		configName = os.Args[0]
+	if len(os.Args) == 2 {
+		configName = os.Args[1]
 	}
 	log.WithField("name", configName).Trace("loading config")
 	// Open the file

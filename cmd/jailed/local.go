@@ -49,7 +49,7 @@ func handleLocalConnection(localConn net.Conn) {
 	}
 	// Now wait for connection from freedom
 	var freedomConn net.Conn
-	timer := time.NewTimer(config.RemoteWaitTimeout * time.Millisecond)
+	timer := time.NewTimer(config.RemoteWaitTimeout)
 	select { // either ...
 	case freedomConn = <-remoteConnChannel: // we get the connection from remote host
 		// avoid leaks

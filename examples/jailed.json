@@ -2,5 +2,5 @@
   "local_listen_address": "127.0.0.1:24519",
   "freedom_listen_address": "127.0.0.1:32521",
   "control_endpoint": "http://127.0.0.1:53141/",
-  "remote_wait_timeout": "5000"
+  "remote_wait_timeout": 5000
 }
